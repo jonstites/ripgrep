@@ -153,6 +153,10 @@ jobs:
       if: matrix.target != ''
       run: ${{ env.CARGO }} test --verbose --all ${{ env.TARGET_FLAGS }}
 
+    - name: Run tests with jemalloc (Musl)
+      if: matrix.os == 'nightly-musl'
+      run: ${{ env.CARGO }} test --verbose --all --features jemalloc ${{ env.TARGET_FLAGS }}
+
     - name: Test for existence of build artifacts (Windows)
       if: matrix.os == 'windows-2019'
       shell: bash
