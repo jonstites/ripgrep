@@ -163,6 +163,10 @@ jobs:
         echo "release version: $RELEASE_VERSION"
 
     - name: Build release binary
+      if: matrix.build == 'linux'
+      # For much better performance, use jemalloc allocator over the musl default allocator
+      run: ${{ env.CARGO }} build --verbose --release --features pcre2 jemalloc ${{ env.TARGET_FLAGS }}
+      if: matrix.build != 'linux'
       run: ${{ env.CARGO }} build --verbose --release --features pcre2 ${{ env.TARGET_FLAGS }}
 
     - name: Strip release binary (linux and macos)

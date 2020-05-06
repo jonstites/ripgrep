@@ -61,8 +61,9 @@ version = "2.33.0"
 default-features = false
 features = ["suggestions"]
 
-[target.'cfg(all(target_env = "musl", target_pointer_width = "64"))'.dependencies]
-jemallocator = {version = "0.3.2", optional = true}
+[dependencies.jemallocator]
+version = "0.3.0"
+optional = true
 
 [build-dependencies]
 lazy_static = "1.1.0"
@@ -80,6 +81,10 @@ walkdir = "2"
 [features]
 simd-accel = ["grep/simd-accel"]
 pcre2 = ["grep/pcre2"]
+# The jemalloc allocator is used for improved
+# performance on x86 musl builds.
+# Cargo does not yet support platform-specific features
+# https://github.com/rust-lang/cargo/issues/1197
 jemalloc = ["jemallocator"]
 
 [profile.release]

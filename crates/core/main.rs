@@ -31,9 +31,9 @@ mod subject;
 // have the fastest version of everything. Its goal is to be small and amenable
 // to static compilation.) Even though ripgrep isn't particularly allocation
 // heavy, musl's allocator appears to slow down ripgrep quite a bit. Therefore,
-// when building with musl, we use jemalloc.
+// we expose a feature for using jemalloc when building with musl.
 //
-// We don't unconditionally use jemalloc because it can be nice to use the
+// We don't use jemalloc by default because it can be nice to use the
 // system's default allocator by default. Moreover, jemalloc seems to increase
 // compilation times by a bit.
 //

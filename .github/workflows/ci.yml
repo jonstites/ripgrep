@@ -154,6 +154,8 @@ jobs:
       run: ${{ env.CARGO }} test --verbose --all ${{ env.TARGET_FLAGS }}
 
     - name: Run tests with jemalloc (Musl)
+      # We only use the jemalloc allocator when building with musl.
+      # The system allocator is good enough for other platforms.
       if: matrix.os == 'nightly-musl'
       run: ${{ env.CARGO }} test --verbose --all --features jemalloc ${{ env.TARGET_FLAGS }}
 
