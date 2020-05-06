@@ -411,6 +411,15 @@ build a static executable with MUSL and with PCRE2, then you will need to have
 `musl-gcc` installed, which might be in a separate package from the actual
 MUSL library, depending on your Linux distribution.
 
+When building with the MUSL target on Linux, it is recommended to use the
+jemalloc allocator for performance:
+
+```
+$ rustup target add x86_64-unknown-linux-musl
+$ cargo build --release --target x86_64-unknown-linux-musl --features jemalloc
+```
+
+
 
 ### Running tests
 

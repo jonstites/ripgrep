@@ -31,7 +31,7 @@ mod subject;
 // have the fastest version of everything. Its goal is to be small and amenable
 // to static compilation.) Even though ripgrep isn't particularly allocation
 // heavy, musl's allocator appears to slow down ripgrep quite a bit. Therefore,
-// when building with musl, we use jemalloc.
+// we expose a feature for using jemalloc when building with musl.
 //
 // We don't unconditionally use jemalloc because it can be nice to use the
 // system's default allocator by default. Moreover, jemalloc seems to increase
@@ -39,7 +39,11 @@ mod subject;
 //
 // Moreover, we only do this on 64-bit systems since jemalloc doesn't support
 // i686.
-#[cfg(all(target_env = "musl", target_pointer_width = "64"))]
+#[cfg(all(
+    target_env = "musl",
+    target_pointer_width = "64",
+    feature = "jemalloc"
+))]
 #[global_allocator]
 static ALLOC: jemallocator::Jemalloc = jemallocator::Jemalloc;
 
